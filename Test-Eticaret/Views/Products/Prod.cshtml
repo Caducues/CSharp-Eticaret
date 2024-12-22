@@ -1,0 +1,22 @@
+﻿@model List<Test_Eticaret.Models.Product>
+
+<h2>Products</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Product in Model)
+        {
+            <tr>
+                <td> @Product.Name</td>
+                <td>@Product.Price</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
