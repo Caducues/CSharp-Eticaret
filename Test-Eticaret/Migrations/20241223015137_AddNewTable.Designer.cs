@@ -11,8 +11,8 @@ using Test_Eticaret.Data;
 namespace Test_Eticaret.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241221153005_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241223015137_AddNewTable")]
+    partial class AddNewTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Test_Eticaret.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Test_Eticaret.Models.product", b =>
+            modelBuilder.Entity("Test_Eticaret.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,7 +33,6 @@ namespace Test_Eticaret.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("Price")

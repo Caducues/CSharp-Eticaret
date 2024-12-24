@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test_Eticaret.Data;
 
@@ -10,9 +11,11 @@ using Test_Eticaret.Data;
 namespace Test_Eticaret.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241223030319_movies")]
+    partial class movies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,22 +24,6 @@ namespace Test_Eticaret.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Test_Eticaret.Models.Category", b =>
-                {
-                    b.Property<int>("category_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("category_id"));
-
-                    b.Property<string>("category_name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("category_id");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("Test_Eticaret.Models.Movie", b =>
                 {
                     b.Property<int>("movie_id")
@@ -44,9 +31,6 @@ namespace Test_Eticaret.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("movie_id"));
-
-                    b.Property<int>("category_id")
-                        .HasColumnType("int");
 
                     b.Property<int>("imdb")
                         .HasColumnType("int");
