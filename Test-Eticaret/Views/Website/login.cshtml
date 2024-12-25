@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@model Test_Eticaret.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
 
 <head>
     <meta charset="UTF-8">
@@ -97,24 +101,25 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Login</h3>
-                        <form action="#">
+                        <form method="post" asp-action="Login">
                             <div class="input__item">
-                                <input type="text" placeholder="Email address">
+                                <input type="text" asp-for="user_email" placeholder="Email address">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Password">
+                                <input type="password" asp-for="user_password" placeholder="Password">
                                 <span class="icon_lock"></span>
                             </div>
                             <button type="submit" class="site-btn">Login Now</button>
                         </form>
+
                         <a href="#" class="forget_pass">Forgot Your Password?</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
                         <h3>Dont’t Have An Account?</h3>
-                        <a href="#" class="primary-btn">Register Now</a>
+                        <a href="/website/signup/" class="primary-btn">Register Now</a>
                     </div>
                 </div>
             </div>
@@ -191,9 +196,4 @@
     <script src="~/js/jquery.slicknav.js"></script>
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/main.js"></script>
-
-
-
 </body>
-
-</html>
