@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Test_Eticaret.Data;
 using Test_Eticaret.Models;
 
@@ -71,6 +72,35 @@ namespace Test_Eticaret.Controllers
 
             return View(movies); // Veriyi view'a gönderiyoruz
         }    // POST: Login
-    } 
+
+        public IActionResult login()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> login(User usermodel)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.user_email == usermodel.user_email && u.user_password == usermodel.user_password);
+                if (user == null || user.user_password != usermodel.user_password)
+                {
+                    ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
+                    return View(usermodel);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Website");
+                }
+            }
+          
+
+            return View(usermodel);
+
+        }
+    }
+
 }
 

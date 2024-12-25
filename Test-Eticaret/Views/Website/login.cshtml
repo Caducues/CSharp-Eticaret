@@ -101,14 +101,16 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Login</h3>
-                        <form method="post" asp-action="Login">
+                        <form method="post">
                             <div class="input__item">
                                 <input type="text" asp-for="user_email" placeholder="Email address">
                                 <span class="icon_mail"></span>
+                                <span asp-validation-for="user_email" class="text-danger"></span>
                             </div>
                             <div class="input__item">
                                 <input type="password" asp-for="user_password" placeholder="Password">
                                 <span class="icon_lock"></span>
+                                <span asp-validation-for="user_password" class="text-danger"></span>
                             </div>
                             <button type="submit" class="site-btn">Login Now</button>
                         </form>
