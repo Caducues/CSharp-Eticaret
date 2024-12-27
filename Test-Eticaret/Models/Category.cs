@@ -5,5 +5,6 @@
         [Key]
         public int category_id { get; set; }
         public string? category_name { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }

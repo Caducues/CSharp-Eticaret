@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test_Eticaret.Data;
 
@@ -11,9 +12,11 @@ using Test_Eticaret.Data;
 namespace Test_Eticaret.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241227215910_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,48 +24,6 @@ namespace Test_Eticaret.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("Test_Eticaret.Models.Admin", b =>
-                {
-                    b.Property<int>("admin_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("admin_id"));
-
-                    b.Property<int?>("Admin_Rolerole_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("admin_email")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("admin_password")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("admin_id");
-
-                    b.HasIndex("Admin_Rolerole_id");
-
-                    b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("Test_Eticaret.Models.Admin_Role", b =>
-                {
-                    b.Property<int>("role_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("role_id"));
-
-                    b.Property<int>("admin_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("role_id");
-
-                    b.HasIndex("admin_id");
-
-                    b.ToTable("Admin_Roles");
-                });
 
             modelBuilder.Entity("Test_Eticaret.Models.Category", b =>
                 {
@@ -208,24 +169,6 @@ namespace Test_Eticaret.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Test_Eticaret.Models.Admin", b =>
-                {
-                    b.HasOne("Test_Eticaret.Models.Admin_Role", null)
-                        .WithMany("Admins")
-                        .HasForeignKey("Admin_Rolerole_id");
-                });
-
-            modelBuilder.Entity("Test_Eticaret.Models.Admin_Role", b =>
-                {
-                    b.HasOne("Test_Eticaret.Models.Admin", "Admin")
-                        .WithMany("Admin_Roles")
-                        .HasForeignKey("admin_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Admin");
-                });
-
             modelBuilder.Entity("Test_Eticaret.Models.Category", b =>
                 {
                     b.HasOne("Test_Eticaret.Models.Movie", null)
@@ -272,16 +215,6 @@ namespace Test_Eticaret.Migrations
                     b.HasOne("Test_Eticaret.Models.Favorite", null)
                         .WithMany("Users")
                         .HasForeignKey("Favoritefav_id");
-                });
-
-            modelBuilder.Entity("Test_Eticaret.Models.Admin", b =>
-                {
-                    b.Navigation("Admin_Roles");
-                });
-
-            modelBuilder.Entity("Test_Eticaret.Models.Admin_Role", b =>
-                {
-                    b.Navigation("Admins");
                 });
 
             modelBuilder.Entity("Test_Eticaret.Models.Category", b =>
