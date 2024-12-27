@@ -9,6 +9,22 @@
         //resim url'i
 
 
+        //Studio
+        //Yayınlanma tarihi
+        //imdb 
+        //Site PUanı 
+        //Süresi
+        //Kalitesi
+        //İzleyen Kişi 
+
+       
+
+        // Anime Watching Kısmı
+
+        // Video 
+
+
+
         [Key]
         public int movie_id { get; set; }
         public string? movie_name { get; set; }

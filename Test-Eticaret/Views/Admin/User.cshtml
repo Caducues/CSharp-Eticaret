@@ -1,0 +1,39 @@
+﻿@model List<Test_Eticaret.Models.User>
+@{
+    Layout = "_AdminLayout"; // Admin Layout dosyasını belirtme
+}
+
+
+<body>
+    <div class="container my-5 text-white">
+        <h1>Manage Users</h1>
+        <table class="table table-bordered table-striped text-white">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+           @foreach(var user in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@user.first_name @user.last_name</td>
+                        <td>@user.user_email</td>
+                        <td>Rolü</td>
+                        <td>
+                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            }
+     
+        </table>
+        <a href="AdminDashboard.html" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</body>
+

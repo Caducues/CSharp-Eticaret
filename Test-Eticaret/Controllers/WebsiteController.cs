@@ -46,16 +46,31 @@ namespace Test_Eticaret.Controllers
             return View(user);
 
         }
-        public async Task<IActionResult> anime_details()
+        [Route("website/anime_details/{movieId}")]
+        public async Task<IActionResult> anime_details(int movieId)
         {
-            // Veritabanından tüm filmleri alıyoruz
-            var movies = await _context.Movies.ToListAsync();
+            var selected_movie = await _context.Movies.FirstOrDefaultAsync(m => m.movie_id == movieId);
 
-            return View(movies); // Veriyi view'a gönderiyoruz
+            if (selected_movie == null)
+            {
+
+                return NotFound();
+            }
+
+            return View(selected_movie);
         }
-        public IActionResult anime_watching()
+        [Route("website/anime_watching/{movieId}")]
+        public async Task<IActionResult> anime_watching(int movieId)
         {
-            return View();
+            var selected_movie = await _context.Movies.FirstOrDefaultAsync(m => m.movie_id == movieId);
+
+            if (selected_movie == null)
+            {
+         
+                return NotFound();
+            }
+
+            return View(selected_movie); 
         }
         public IActionResult blog()
         {
@@ -74,6 +89,11 @@ namespace Test_Eticaret.Controllers
         }    // POST: Login
 
         public IActionResult login()
+        {
+            return View();
+        }
+
+        public IActionResult admin()
         {
             return View();
         }
