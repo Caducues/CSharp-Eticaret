@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test_Eticaret.Data;
 
@@ -11,9 +12,11 @@ using Test_Eticaret.Data;
 namespace Test_Eticaret.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228002429_test4")]
+    partial class test4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,20 +131,14 @@ namespace Test_Eticaret.Migrations
                     b.Property<int>("imdb")
                         .HasColumnType("int");
 
-                    b.Property<int>("like")
+                    b.Property<int>("movie_date")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("movie_date")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("movie_description")
                         .HasColumnType("longtext");
 
                     b.Property<string>("movie_name")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("movie_time")
-                        .HasColumnType("int");
 
                     b.Property<string>("movie_url")
                         .IsRequired()

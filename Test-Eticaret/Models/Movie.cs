@@ -18,8 +18,10 @@ namespace Test_Eticaret.Models
         public int imdb {  get; set; } //API kullanılacak
         public int view { get; set; }
         public string? picture_url { get; set; }
-        public int movie_date { get; set; }
+        public DateTime movie_date { get; set; }
         public string movie_url { get; set; }   
+        public int like { get; set; }
+        public int movie_time { get; set; }
          
  
         [ForeignKey("Category")]
