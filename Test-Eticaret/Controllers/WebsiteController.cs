@@ -49,16 +49,21 @@ namespace Test_Eticaret.Controllers
         [Route("website/anime_details/{movieId}")]
         public async Task<IActionResult> anime_details(int movieId)
         {
-            var selected_movie = await _context.Movies.FirstOrDefaultAsync(m => m.movie_id == movieId);
+        
+            var selected_movie = await _context.Movies
+                                               .Include(m => m.Category) 
+                                               .FirstOrDefaultAsync(m => m.movie_id == movieId);
 
+            // Eğer film bulunmazsa, 404 sayfası gösteriyoruz
             if (selected_movie == null)
             {
-
-                return NotFound();
+                return NotFound("Movie not found");
             }
 
+            // Film verisi varsa, ilgili view'a gönderiyoruz
             return View(selected_movie);
         }
+
         [Route("website/anime_watching/{movieId}")]
         public async Task<IActionResult> anime_watching(int movieId)
         {
@@ -80,13 +85,35 @@ namespace Test_Eticaret.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> categories()
+        [Route("website/categories/{category_id}")]
+        public async Task<IActionResult> Categories(int category_id)
         {
-            // Veritabanından tüm filmleri alıyoruz
-            var movies = await _context.Movies.ToListAsync();
+            // Kategori adı almak için kategori nesnesini buluyoruz
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.category_id == category_id);
 
-            return View(movies); // Veriyi view'a gönderiyoruz
-        }    // POST: Login
+            if (category == null)
+            {
+                return NotFound();  // Kategori bulunamazsa 404 döndür
+            }
+
+            // Seçilen kategoriye ait filmleri alıyoruz
+            var selected_movies = await _context.Movies
+                                                 .Where(m => m.category_id == category_id)
+                                                 .ToListAsync();
+
+            if (selected_movies == null || !selected_movies.Any())
+            {
+                return NotFound();  // Eğer kategoriye ait film yoksa 404 döndür
+            }
+
+            // Kategori adını ViewData'ya gönderiyoruz
+            ViewData["CategoryName"] = category.category_name;
+
+            // Filmleri view'a gönderiyoruz
+            return View(selected_movies);
+        }
+
+
 
         public IActionResult login()
         {

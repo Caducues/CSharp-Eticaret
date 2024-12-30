@@ -9,19 +9,26 @@ namespace Test_Eticaret.Models
         //Studio
         //Yayınlanma tarihi
         //Süresi
-        // Video 
+        // Video
+
+        //Kategori ismi
+
+
+
+        // top views ve New Comment veritabanı açılacak
+
 
         [Key]
         public int movie_id { get; set; }
         public string? movie_name { get; set; }
         public string? movie_description { get; set; }
-        public int imdb {  get; set; } //API kullanılacak
+        public float imdb {  get; set; } //API kullanılacak
         public int view { get; set; }
         public string? picture_url { get; set; }
         public DateTime movie_date { get; set; }
         public string movie_url { get; set; }   
         public int like { get; set; }
-        public int movie_time { get; set; }
+        public float movie_time { get; set; }
          
  
         [ForeignKey("Category")]

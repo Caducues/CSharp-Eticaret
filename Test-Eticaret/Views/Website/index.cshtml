@@ -35,38 +35,40 @@
     <section class="hero">
         <div class="container">
             <div class="hero__slider owl-carousel">
-                <div class="hero__items set-bg" data-setbg="/img/hero/hero-1.jpg">
+                <div class="hero__items set-bg" data-setbg="/img/movie_picture/TheLordoftheRings.jpg">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
                                 <div class="label">Adventure</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                <p>After 30 days of travel across the world...</p>
-                                <a href="/Website/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                                <h2>The Lord Of The Rings</h2>
+                                <p>Yüzüklerin Efendisi serisinin ilk filminde, hobbit Frodo Baggins, büyülü bir yüzüðü yok etmek için tehlikeli bir yolculuða çýkar.</p>
+                                <a href="/Website/anime_details/24/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="hero__items set-bg" data-setbg="/img/hero/hero-1.jpg">
+                <div class="hero__items set-bg" data-setbg="/img/movie_picture/madmax.jpg">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
                                 <div class="label">Adventure</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                <p>After 30 days of travel across the world...</p>
-                                <a href="/Website/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                                <h2>Mad Max: Fury Road </h2>
+                                <p class="">
+                                    Post-apokaliptik bir dünyada geçen film, intikam arayýþýndaki bir eski polis olan Max Rockatansky'nin hikayesini anlatýr. Max, yozlaþmýþ bir toplumda hayatta kalmaya çalýþan bir adamdýr.
+                                </p>
+                                <a href="/Website/anime_details/3/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="hero__items set-bg" data-setbg="/img/hero/hero-1.jpg">
+                <div class="hero__items set-bg" data-setbg="/img/movie_picture/Inception.jpg">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
                                 <div class="label">Adventure</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                <p>After 30 days of travel across the world...</p>
-                                <a href="/Website/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                                <h2>Inception</h2>
+                                <p>Bir grup hýrsýz, insanlarýn rüyalarýna girip bilgi çalmaktadýr. Ancak, en zor görevleri olan "fikir ekme" görevini kabul ederler ve bunun içinde karmaþýk bir rüya dünyasýnda mücadele ederler.</p>
+                                <a href="/Website/anime_details/14/"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -98,17 +100,17 @@
                             {
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/trending/trend-1.jpg"> 
-                                            <div class="ep">18 / 18</div>
-                                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                        <div class="product__item__pic set-bg" data-setbg="@movie.picture_url"> 
+                                            <div class="ep">@movie.imdb</div>
+                                            <div class="comment"><i class="fa fa-comments"></i>18</div>
+                                            <div class="view"><i class="fa fa-eye"></i>@movie.view</div>
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
                                                 <li>Active</li>
                                                 <li>Movie</li>
                                             </ul>
-                                            <h5><a href="/Website/anime_watching/@movie.movie_id/">@movie.movie_name</a></h5>
+                                            <h5><a href="/Website/anime_details/@movie.movie_id/">@movie.movie_name</a></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -135,10 +137,10 @@
                             {
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/popular/popular-1.jpg">
-                                            <div class="ep">18 / 18</div>
+                                        <div class="product__item__pic set-bg" data-setbg="@movie.picture_url">
+                                            <div class="ep">@movie.imdb</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                            <div class="view"><i class="fa fa-eye"></i> @movie.view</div>
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
@@ -175,10 +177,10 @@
                             {
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/recent/recent-1.jpg">
-                                            <div class="ep">18 / 18</div>
+                                        <div class="product__item__pic set-bg" data-setbg="@movie.picture_url">
+                                            <div class="ep">@movie.imdb</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                            <div class="view"><i class="fa fa-eye"></i>@movie.view</div>
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
@@ -210,10 +212,10 @@
                             {
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="/img/live/live-1.jpg">
-                                            <div class="ep">18 / 18</div>
+                                        <div class="product__item__pic set-bg" data-setbg="@movie.picture_url">
+                                            <div class="ep">@movie.like</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                            <div class="view"><i class="fa fa-eye"></i> @movie.view</div>
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
@@ -245,9 +247,9 @@
                                 @foreach (var movie in Model)
                                 {
                                     <div class="product__sidebar__view__item set-bg mix day years"
-                                         data-setbg="/img/sidebar/tv-1.jpg">
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                         data-setbg="@movie.picture_url">
+                                        <div class="ep">@movie.imdb</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @movie.view</div>
                                         <h5><a href="/Website/">@movie.movie_name</a></h5>
                                     </div>
                                 }
@@ -264,7 +266,7 @@
                             {
                                 <div class="product__sidebar__comment__item">
                                     <div class="product__sidebar__comment__item__pic">
-                                        <img src="~/img/sidebar/comment-1.jpg" alt="">
+                                        <img src="@movie.picture_url" alt="">
                                     </div>
                                     <div class="product__sidebar__comment__item__text">
                                         <ul>
@@ -272,7 +274,7 @@
                                             <li>Movie</li>
                                         </ul>
                                         <h5><a href="/Website/">@movie.movie_name</a></h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                                        <span><i class="fa fa-eye"></i> @movie.view Viewes</span>
                                     </div>
                                 </div>
                             }
