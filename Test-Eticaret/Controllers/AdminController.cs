@@ -48,5 +48,8 @@ namespace Test_Eticaret.Controllers
             return View(movies); // Veriyi view'a gönderiyoruz
         }
 
-    }
+		
+
+
+	}
 }
