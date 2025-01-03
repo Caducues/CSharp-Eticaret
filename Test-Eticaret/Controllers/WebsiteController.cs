@@ -27,31 +27,65 @@ namespace Test_Eticaret.Controllers
         {
             return View();
         }
-        // GET: /Website/signup
+
         [HttpGet]
         public IActionResult Signup()
         {
             return View();
         }
-        // POST: /Kullanıcı Kayıt 
-        [HttpPost]
-        public async Task<IActionResult> Signup([Bind("user_email,first_name,last_name,tel_no,user_password")] User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Website");
-            }
-            return View(user);
 
+        [HttpPost]
+        public async Task<IActionResult> Signup(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Email'in benzersiz olduğunu kontrol et
+                    var existingUser = await _context.Users
+                                                     .FirstOrDefaultAsync(u => u.user_email == user.user_email);
+
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError("user_email", "Bu e-posta adresi zaten kullanılmakta.");
+                        return View(user); // Hata varsa tekrar aynı sayfaya dön
+                    }
+
+                    // Şifreyi hash'lemek için PasswordHasher kullan
+                    var passwordHasher = new PasswordHasher<User>();
+                    user.user_password = passwordHasher.HashPassword(user, user.user_password);
+
+                    // Yeni kullanıcıyı ekle
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Website");
+                }
+                catch (Exception ex)
+                {
+                    // Hata durumunda log yazdırma
+                    Console.WriteLine($"Veritabanı hatası: {ex.Message}");
+                    ModelState.AddModelError("", "Kullanıcı kaydederken bir hata oluştu.");
+                    return View(user); // Hata durumunda tekrar aynı sayfaya dön
+                }
+            }
+
+            // Eğer model geçerli değilse, hata mesajlarını göster
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
+            return View(user);
         }
+
+
         [Route("website/anime_details/{movieId}")]
         public async Task<IActionResult> anime_details(int movieId)
         {
-        
+
             var selected_movie = await _context.Movies
-                                               .Include(m => m.Category) 
+                                               .Include(m => m.Category)
                                                .FirstOrDefaultAsync(m => m.movie_id == movieId);
 
             // Eğer film bulunmazsa, 404 sayfası gösteriyoruz
@@ -71,11 +105,11 @@ namespace Test_Eticaret.Controllers
 
             if (selected_movie == null)
             {
-         
+
                 return NotFound();
             }
 
-            return View(selected_movie); 
+            return View(selected_movie);
         }
         public IActionResult blog()
         {
@@ -129,25 +163,23 @@ namespace Test_Eticaret.Controllers
         [HttpPost]
         public async Task<IActionResult> login(User usermodel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                // Veritabanından kullanıcıyı çek
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.user_email == usermodel.user_email && u.user_password == usermodel.user_password);
-                if (user == null || user.user_password != usermodel.user_password)
+
+                // Eğer kullanıcı bulunamazsa
+                if (user == null)
                 {
                     ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
                     return View(usermodel);
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Website");
-                }
-            }
-          
 
-            return View(usermodel);
+            }
+            return View("index", "Website");
 
         }
-    }
 
+    }
 }
 

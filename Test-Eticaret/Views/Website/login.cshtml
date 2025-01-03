@@ -57,7 +57,7 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Login</h3>
-                        <form method="post">
+                        <form method="post" asp-action="Login">
                             <div class="input__item">
                                 <input type="text" asp-for="user_email" placeholder="Email address">
                                 <span class="icon_mail"></span>
@@ -68,7 +68,7 @@
                                 <span class="icon_lock"></span>
                                 <span asp-validation-for="user_password" class="text-danger"></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <button type="submit" class="site-btn" asp-action="Login">Login Now</button>
                         </form>
 
                         <a href="#" class="forget_pass">Forgot Your Password?</a>

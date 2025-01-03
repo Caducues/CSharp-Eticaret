@@ -57,7 +57,7 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Sign Up</h3>
-                        <form method="post" asp-action="signup">
+                        <form method="post" asp-controller="Website" asp-action="signup">
 
                             <div class="input__item">
                                 <input type="text" placeholder="Email address" asp-for="user_email">
@@ -81,7 +81,7 @@
                             </div>
                             <button type="submit" class="site-btn">Signup Now</button>
                         </form>
-                        <h5>Already have an account? <a href="#">Log In!</a></h5>
+                        <h5>Already have an account? <a href="#" asp-action="">Log In!</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -155,5 +155,3 @@
     <script src="~/js/main.js"></script>
 
 </body>
-
-</html>
