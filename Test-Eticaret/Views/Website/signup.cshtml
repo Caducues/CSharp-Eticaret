@@ -1,8 +1,6 @@
 @model Test_Eticaret.Models.User
 
-@{
-    ViewData["Title"] = "Create";
-}
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Anime Template">
@@ -57,7 +55,7 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Sign Up</h3>
-                        <form method="post" asp-controller="Website" asp-action="signup">
+                        <form method="post" asp-controller="Website" asp-action="Signup">
 
                             <div class="input__item">
                                 <input type="text" placeholder="Email address" asp-for="user_email">
@@ -79,9 +77,9 @@
                                 <input type="text" placeholder="Password" asp-for="user_password">
                                 <span class="icon_lock"></span>
                             </div>
-                            <button type="submit" class="site-btn">Signup Now</button>
+                            <button type="submit" asp-action="Signup" class="site-btn">Signup Now</button>
                         </form>
-                        <h5>Already have an account? <a href="#" asp-action="">Log In!</a></h5>
+                        <h5>Already have an account? <a href="#" >Log In!</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-6">

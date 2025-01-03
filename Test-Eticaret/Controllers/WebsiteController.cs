@@ -1,27 +1,57 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net.Http;
 using Microsoft.Identity.Client;
 using Test_Eticaret.Data;
 using Test_Eticaret.Models;
+using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
+using System.Security.Cryptography;
 
 namespace Test_Eticaret.Controllers
 {
+
     public class WebsiteController : Controller
     {
+        private readonly string apiKey = "d55e9492";
+
         private readonly ApplicationDbContext _context;
         public WebsiteController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // Index action method
-        public async Task<IActionResult> Index()
+        private async Task<string> GetMovieDetailsByTitleAsync(string movieTitle)
+        {
+            using (var client = new HttpClient())
+            {
+                // Film ismiyle arama yapıyoruz
+                string response = await client.GetStringAsync($"http://www.omdbapi.com/?t={movieTitle}&apikey={apiKey}");
+                int indeks = response.IndexOf("imdbRating");
+
+                string rating = response.Substring(indeks+13, 3);
+
+                  
+				// JSON verisini deserialize ediyoruz
+				//var movie = JsonConvert.DeserializeObject<Movie>(response);
+
+
+                return rating;
+            }
+        }
+
+            // Index action method
+            public async Task<IActionResult> Index()
         {
             // Veritabanından tüm filmleri alıyoruz
             var movies = await _context.Movies.ToListAsync();
+            
 
-            return View(movies); // Veriyi view'a gönderiyoruz
+			return View(movies); // Veriyi view'a gönderiyoruz
         }
         public IActionResult main()
         {
@@ -37,7 +67,7 @@ namespace Test_Eticaret.Controllers
         [HttpPost]
         public async Task<IActionResult> Signup(User user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid ==false )
             {
                 try
                 {
@@ -51,12 +81,33 @@ namespace Test_Eticaret.Controllers
                         return View(user); // Hata varsa tekrar aynı sayfaya dön
                     }
 
-                    // Şifreyi hash'lemek için PasswordHasher kullan
-                    var passwordHasher = new PasswordHasher<User>();
-                    user.user_password = passwordHasher.HashPassword(user, user.user_password);
+					if (user.user_password == null || user.user_password == string.Empty)
+					{
+						ModelState.AddModelError("user_email", "Bu e-posta adresi zaten kullanılmakta.");
+						return View(user); // Hata varsa tekrar aynı sayfaya dön
+					}
 
-                    // Yeni kullanıcıyı ekle
-                    _context.Users.Add(user);
+
+					MD5 md5 = new MD5CryptoServiceProvider();
+
+					//compute hash from the bytes of text  
+					md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(user.user_password));
+
+					//get hash result after compute it  
+					byte[] result = md5.Hash;
+
+					StringBuilder strBuilder = new StringBuilder();
+					for (int i = 0; i < result.Length; i++)
+					{
+						//change it into 2 hexadecimal digits  
+						//for each byte  
+						strBuilder.Append(result[i].ToString("x2"));
+					}
+
+					user.user_password = strBuilder.ToString();
+
+					// Yeni kullanıcıyı ekle
+					_context.Users.Add(user);
                     await _context.SaveChangesAsync();
 
                     return RedirectToAction("Index", "Website");
@@ -87,15 +138,18 @@ namespace Test_Eticaret.Controllers
             var selected_movie = await _context.Movies
                                                .Include(m => m.Category)
                                                .FirstOrDefaultAsync(m => m.movie_id == movieId);
-
-            // Eğer film bulunmazsa, 404 sayfası gösteriyoruz
-            if (selected_movie == null)
+            
+			// Eğer film bulunmazsa, 404 sayfası gösteriyoruz
+			if (selected_movie == null)
             {
                 return NotFound("Movie not found");
             }
+            string rating = await GetMovieDetailsByTitleAsync(selected_movie.movie_name);
 
-            // Film verisi varsa, ilgili view'a gönderiyoruz
-            return View(selected_movie);
+			selected_movie.imdb = float.Parse(rating);
+			// Film verisi varsa, ilgili view'a gönderiyoruz
+            
+			return View(selected_movie);
         }
 
         [Route("website/anime_watching/{movieId}")]
@@ -163,10 +217,30 @@ namespace Test_Eticaret.Controllers
         [HttpPost]
         public async Task<IActionResult> login(User usermodel)
         {
-            if (ModelState.IsValid)
-            {
-                // Veritabanından kullanıcıyı çek
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.user_email == usermodel.user_email && u.user_password == usermodel.user_password);
+            if (ModelState.IsValid == false)
+			{
+
+				MD5 md5 = new MD5CryptoServiceProvider();
+
+				//compute hash from the bytes of text  
+				md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(usermodel.user_password));
+
+				//get hash result after compute it  
+				byte[] result = md5.Hash;
+
+				StringBuilder strBuilder = new StringBuilder();
+				for (int i = 0; i < result.Length; i++)
+				{
+					//change it into 2 hexadecimal digits  
+					//for each byte  
+					strBuilder.Append(result[i].ToString("x2"));
+				}
+
+				usermodel.user_password = strBuilder.ToString();
+
+				// Veritabanından kullanıcıyı çek
+				var user = await _context.Users.FirstOrDefaultAsync(u => u.user_email == usermodel.user_email && u.user_password == usermodel.user_password);
+
 
                 // Eğer kullanıcı bulunamazsa
                 if (user == null)
@@ -174,9 +248,9 @@ namespace Test_Eticaret.Controllers
                     ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
                     return View(usermodel);
                 }
-
-            }
-            return View("index", "Website");
+				return RedirectToAction("Index", "Admin");
+			}
+            return View();
 
         }
 
