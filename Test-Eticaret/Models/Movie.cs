@@ -26,6 +26,7 @@ namespace Test_Eticaret.Models
         public int view { get; set; }
         public string? picture_url { get; set; }
         public DateTime movie_date { get; set; }
+        public DateTime add_date { get; set; }
         public string movie_url { get; set; }   
         public int like { get; set; }
         public float movie_time { get; set; }
