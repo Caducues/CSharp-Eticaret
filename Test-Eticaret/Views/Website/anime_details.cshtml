@@ -75,8 +75,25 @@
                                 <span>@Model.like Votes</span>
                             </div>
                             <p>@Model.movie_description</p>
-                            @Html.Partial("PartialView/_MovieDetails", Model)
-
+                            <div class="anime__details__widget">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Type:</span> TV Series</li>
+                                            <li><span>Date aired:</span>@Model.movie_date</li>
+                                            <li><span>Genre:</span> @Model.Category.category_name</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Scores:</span> @Model.imdb</li>
+                                            <li><span>Rating:</span> @Model.like</li>
+                                            <li><span>Duration:</span>@Model.movie_time saat</li>                                        
+                                            <li><span>Views:</span> @Model.view</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="anime__details__btn">
                                 <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
                                 <a href="/website/anime_watching/@Model.movie_id/" class="watch-btn"><span>Watch Now</span> <i
@@ -160,7 +177,18 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
+                        <div class="anime__details__sidebar">
+                            <div class="section-title">
+                                <h5>you might like...</h5>
+                            </div>
+                       
+                            <div class="product__sidebar__view__item set-bg" data-setbg="/img/sidebar/tv-1.jpg">
+                                <div class="ep">18 / ?</div>
+                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                <h5><a href="#">test</a></h5>
+                            </div>
                         
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
         public int admin_id { get; set; } //user id
         public string? admin_password { get; set; }
         public string? admin_email { get; set; }
-        public ICollection<Admin_Role> Admin_Roles { get; set; }
+        public ICollection<Admin_Role> Admin_Roles { get; set; }1
     }
 }
  // imha
