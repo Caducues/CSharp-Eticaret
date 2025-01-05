@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Test_Eticaret.Models.Movie>
+
+
+
+
+<div class="product__sidebar__comment">
+    <div class="section-title">
+        <h5>New Movies</h5>
+    </div>
+    @foreach (var movie in Model)
+    {
+        <div class="product__sidebar__comment__item">
+            <div class="product__sidebar__comment__item__pic">
+                <a href="/website/anime_details/@movie.movie_id/">  <img src="@movie.picture_url" alt=""></a>
+               
+            </div>
+            <div class="product__sidebar__comment__item__text">
+                <ul>
+                    <li>Active</li>
+                    <li>Movie</li>
+                </ul>
+                <h5><a href="/Website/">@movie.movie_name</a></h5>
+                <span><i class="fa fa-eye"></i> @movie.view Viewes</span>
+            </div>
+        </div>
+    }
+</div>
