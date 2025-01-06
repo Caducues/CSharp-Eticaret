@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using Test_Eticaret.Models;
+using Test_Eticaret.Models.Views;
 
 namespace Test_Eticaret.Data
 {
@@ -49,6 +50,23 @@ namespace Test_Eticaret.Data
                         .HasForeignKey(o => o.admin_id)
                         .OnDelete(DeleteBehavior.Cascade);
 
+            Builder.Entity<MoviesByCategory_View>()
+                        .HasNoKey().ToView("MoviesByCategory_View"); ; // View'lar için birincil anahtar yoktur.
+                         base.OnModelCreating(Builder);
+
+            Builder.Entity<PopularMoviesImdb_View>()
+                        .HasNoKey().ToView("PopularMoviesImdb_View"); ; 
+            base.OnModelCreating(Builder);
+
+            Builder.Entity<RecentlyAddedMovies_View>()
+                        .HasNoKey().ToView("RecentlyAddedMovies_View"); ;
+            base.OnModelCreating(Builder);
+
+            Builder.Entity<TopLikedMovies_View>()
+                       .HasNoKey().ToView("TopLikedMovies_View"); ;
+            base.OnModelCreating(Builder);
+
+
 
         }
 
@@ -69,6 +87,10 @@ namespace Test_Eticaret.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Admin_Role> Admin_Roles { get; set; }
+        public DbSet<MoviesByCategory_View> MoviesByCategory_Views { get; set; }
+        public DbSet<PopularMoviesImdb_View> PopularMoviesImdb_Views { get; set; }
+        public DbSet<RecentlyAddedMovies_View> RecentlyAddedMovies_Views { get; set; }
+        public DbSet<TopLikedMovies_View> TopLikedMovies_Views { get; set; }
 
     }
 }
