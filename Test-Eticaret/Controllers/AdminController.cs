@@ -1,100 +1,88 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Test_Eticaret.Data;
-using Test_Eticaret.Migrations;
 using Test_Eticaret.Models;
-using XAct.Users;
-
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq.Expressions;
 namespace Test_Eticaret.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _context;
-        public AdminController(ApplicationDbContext context)
+        public AdminController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment; 
         }
-
-        // Index action method
-        public async Task<IActionResult> Index()
+        // Film ekleme sayfası
+        public IActionResult addmovie()
         {
-            // Veritabanından tüm filmleri alıyoruz
-            var movies = await _context.Movies.ToListAsync();
+            // Kategorileri ViewData'ya ekliyoruz, bu kategoriler dropdown'da görünecek
+            ViewData["Categories"] = new SelectList(_context.Categories, "category_id", "category_name");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addmovie(Movie movie, IFormFile picture_url)
+        {
+            try
+            {
+                if (picture_url != null)
+                {
+                    var fileExtension = Path.GetExtension(picture_url.FileName).ToLower();           
+                    if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png")
+                    {
+                        var fileName = Guid.NewGuid().ToString() + fileExtension;
+                        var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                        var filePath = Path.Combine(uploads, fileName);
+                        if (!Directory.Exists(uploads))
+                        {
+                            Directory.CreateDirectory(uploads);
+                        }
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await picture_url.CopyToAsync(fileStream);
+                        }
+                        movie.picture_url = "/uploads/" + fileName;
+                        
 
-            return View(movies); // Veriyi view'a gönderiyoruz
+
+                    }
+                }
+                
+                _context.Add(movie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+                ViewData["Categories"] = new SelectList(_context.Categories, "category_id", "category_name", movie.category_id);
+                return View(movie);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+
+            }
+        }
+        public async Task<IActionResult> Index(string name)
+        {
+            var movies = await _context.Movies.Include(m => m.Category).ToListAsync();
+            return View(movies);  
         }
         public async Task<IActionResult> Category()
         {
-            // Veritabanından tüm filmleri alıyoruz
             var categories = await _context.Categories.ToListAsync();
-
-            return View(categories); // Veriyi view'a gönderiyoruz
-        }
-        public IActionResult Comment()
-        {
-      
-
-            return View(); // Veriyi view'a gönderiyoruz
+            return View(categories);
         }
         public async Task<IActionResult> User()
         {
-            // Veritabanından tüm filmleri alıyoruz
             var users = await _context.Users.ToListAsync();
-
-            return View(users); // Veriyi view'a gönderiyoruz
+            return View(users);
         }
-        public async Task<IActionResult> Movie()
-        {
-            // Veritabanından tüm filmleri alıyoruz
-            var movies = await _context.Movies.ToListAsync();
-
-            return View(movies); // Veriyi view'a gönderiyoruz
-        }
-
-
-        [HttpGet]
-        public IActionResult addmovie()
-        {
-            return View();
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> AddMovie(Movie movie, IFormFile picture_url, IFormFile movie_url)
-        {
-            if (ModelState.IsValid)
-            {
-                // Resmi kaydetme işlemi
-                if (picture_url != null)
-                {
-                    var picturePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(picture_url.FileName));
-                    using (var stream = new FileStream(picturePath, FileMode.Create))
-                    {
-                        await picture_url.CopyToAsync(stream);
-                    }
-                    movie.picture_url = "/images/" + Path.GetFileName(picture_url.FileName); // Dosyanın URL'si
-                }
-
-                // Video kaydetme işlemi
-                if (movie_url != null)
-                {
-                    var videoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/videos", Path.GetFileName(movie_url.FileName));
-                    using (var stream = new FileStream(videoPath, FileMode.Create))
-                    {
-                        await movie_url.CopyToAsync(stream);
-                    }
-                    movie.movie_url = "/videos/" + Path.GetFileName(movie_url.FileName); // Dosyanın URL'si
-                }
-
-                // Filmi veritabanına kaydetme
-                _context.Movies.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            // Form geçerli değilse, hata mesajları ile birlikte formu tekrar göster
-            return View(movie);
-        }
-
     }
 }

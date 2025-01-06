@@ -1,4 +1,22 @@
-@model List<Test_Eticaret.Models.Movie>
+ @model List<Test_Eticaret.Models.Movie>
+
+
+@*
+@model Tuple<Test_Eticaret.Models.Movie, Test_Eticaret.Models.Views.TopLikedMovies_View>
+
+@using (Html.BeginForm("Login1", "Auth", FormMethod.Post))
+{
+        @Html.TextBoxFor(tuple => tuple.Item2.Name, new {@Name="Name"})
+        @Html.TextBoxFor(tuple => tuple.Item2.Email, new {@Name="Email"})
+        @Html.PasswordFor(tuple => tuple.Item2.Password, new {@Name="Password"})
+}
+
+@using (Html.BeginForm("Login2", "Auth", FormMethod.Post))
+{
+        @Html.TextBoxFor(tuple => tuple.Item1.Email, new {@Name="Email"})
+        @Html.PasswordFor(tuple => tuple.Item1.Password, new {@Name="Password"})
+}
+ *@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Anime Template">
@@ -11,6 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
+  
 
     <!-- Css Styles -->
 
@@ -231,33 +250,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="product__sidebar">
-                        <div class="product__sidebar__view">
-                            <div class="section-title">
-                                <h5>Top Views</h5>
-                            </div>
-                            <ul class="filter__controls">
-                                <li class="active" data-filter="*">Day</li>
-                                <li data-filter=".week">Week</li>
-                                <li data-filter=".month">Month</li>
-                                <li data-filter=".years">Years</li>
-                            </ul>
-                            
-                            <div class="filter__gallery">
-                                @foreach (var movie in Model)
-                                {
-                                    <div class="product__sidebar__view__item set-bg mix day years"
-                                         data-setbg="@movie.picture_url">
-                                        <div class="ep">@movie.imdb</div>
-                                        <div class="view"><i class="fa fa-eye"></i> @movie.view</div>
-                                        <h5><a href="/Website/">@movie.movie_name</a></h5>
-                                    </div>
-                                }
-                                
-                             
-                            </div>
-                        </div>
-                       
+                   
+
                             @await Component.InvokeAsync("RecentMovies");
                            
                     </div>

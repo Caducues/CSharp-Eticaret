@@ -41,4 +41,5 @@ namespace Test_Eticaret.Models
 
 
     }
+
 }
