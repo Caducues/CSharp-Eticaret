@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
+using Microsoft.Data.SqlClient;
+using Newtonsoft.Json.Linq;
+using System.Data;
 namespace Test_Eticaret.Controllers
 {
     public class AdminController : Controller
@@ -19,6 +22,11 @@ namespace Test_Eticaret.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment; 
         }
+
+        
+
+
+
         // Film ekleme sayfası
         public IActionResult addmovie()
         {
@@ -74,6 +82,11 @@ namespace Test_Eticaret.Controllers
             var movies = await _context.Movies.Include(m => m.Category).ToListAsync();
             return View(movies);  
         }
+        public async Task<IActionResult> Movie()
+        {
+            var movies = await _context.Movies.ToListAsync();
+            return View(movies);
+        }
         public async Task<IActionResult> Category()
         {
             var categories = await _context.Categories.ToListAsync();
@@ -84,5 +97,8 @@ namespace Test_Eticaret.Controllers
             var users = await _context.Users.ToListAsync();
             return View(users);
         }
+
+     
     }
+
 }

@@ -58,6 +58,9 @@ namespace Test_Eticaret.Controllers
             return View(movies);  // Veriyi view'a gönderiyoruz
         }
 
+
+
+       
         public IActionResult main()
         {
             return View();
@@ -246,11 +249,20 @@ namespace Test_Eticaret.Controllers
                     ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
                     return View(usermodel);
                 }
+                else if(usermodel.user_email == "admin@admin.com" && usermodel.user_password == "123456")
+                {
+                    string[] parse = contents.Split('"');
+
+                    return RedirectToAction("index", "Admin", new { name = parse[3] });
+                }
+
+
+
                 else
                 {
                     string[] parse = contents.Split('"');
 
-                    return RedirectToAction("Index", "Admin", new { name = parse[3] });
+                    return RedirectToAction("index", "Website", new { name = parse[3] });
                 }
                 
 
@@ -299,6 +311,8 @@ namespace Test_Eticaret.Controllers
         }
         */
 
+
+        
     }
 }
 

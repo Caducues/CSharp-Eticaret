@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using Test_Eticaret.Models;
 using Test_Eticaret.Models.Views;
@@ -7,6 +8,8 @@ namespace Test_Eticaret.Data
 {
     public class ApplicationDbContext:DbContext
     {
+        
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options) { }
         protected override void OnModelCreating(ModelBuilder Builder)
         {
@@ -50,6 +53,8 @@ namespace Test_Eticaret.Data
                         .HasForeignKey(o => o.admin_id)
                         .OnDelete(DeleteBehavior.Cascade);
 
+            //viewlar
+
             Builder.Entity<MoviesByCategory_View>()
                         .HasNoKey().ToView("MoviesByCategory_View"); ; // View'lar için birincil anahtar yoktur.
                          base.OnModelCreating(Builder);
@@ -66,6 +71,9 @@ namespace Test_Eticaret.Data
                        .HasNoKey().ToView("TopLikedMovies_View"); ;
             base.OnModelCreating(Builder);
 
+          
+
+            
 
 
         }
@@ -79,10 +87,6 @@ namespace Test_Eticaret.Data
         {
             throw new NotImplementedException();
         }
-
-
-
-        //public DbSet<TopLikedMovies_View> TopLikedMovies { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -90,10 +94,17 @@ namespace Test_Eticaret.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Admin_Role> Admin_Roles { get; set; }
-        //public DbSet<MoviesByCategory_View> MoviesByCategory_Views { get; set; }
-        //public DbSet<PopularMoviesImdb_View> PopularMoviesImdb_Views { get; set; }
-        //public DbSet<RecentlyAddedMovies_View> RecentlyAddedMovies_Views { get; set; }
-        //public DbSet<TopLikedMovies_View> TopLikedMovies_Views { get; set; }
 
+        //fonsiyonlar
+        public int CountMovies()
+        {
+            // SQL fonksiyonunu çağırıyoruz
+            var totalMovies = this.Movies
+                .FromSqlRaw("SELECT CountMovies()")
+            .Select(x => x.movie_id) 
+            .FirstOrDefault(); // Veritabanından gelen ilk sonucu alıyoruz
+
+            return totalMovies == 0 ? 0 : totalMovies; // Null kontrolü
+        }
     }
 }
