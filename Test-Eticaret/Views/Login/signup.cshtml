@@ -1,4 +1,4 @@
-@model Test_Eticaret.Models.User
+﻿@model Test_Eticaret.Models.User
 
 
 <head>
@@ -12,7 +12,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
@@ -31,7 +31,7 @@
         <div class="loader"></div>
     </div>
 
-   
+
 
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="/img/normal-breadcrumb.jpg">
@@ -47,7 +47,6 @@
         </div>
     </section>
     <!-- Normal Breadcrumb End -->
-
     <!-- Signup Section Begin -->
     <section class="signup spad">
         <div class="container">
@@ -79,14 +78,15 @@
                             </div>
                             <button type="submit" asp-action="Signup" class="site-btn">Signup Now</button>
                         </form>
-                        <h5>Already have an account? <a href="#" >Log In!</a></h5>
+                        <h5>Already have an account? <a href="/login/login/">Log In!</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__social__links">
                         <h3>Login With:</h3>
                         <ul>
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
+                            <li>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
                             </li>
                             <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
                             <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
@@ -97,7 +97,6 @@
         </div>
     </section>
     <!-- Signup Section End -->
-
     <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="page-up">
@@ -121,18 +120,19 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
 
-                  </div>
-              </div>
-          </div>
-      </footer>
-      <!-- Footer Section End -->
-
-      <!-- Search model Begin -->
-      <div class="search-model">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search model Begin -->
+    <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch"><i class="icon_close"></i></div>
             <form class="search-model-form">
@@ -141,7 +141,6 @@
         </div>
     </div>
     <!-- Search model end -->
-
     <!-- Js Plugins -->
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>

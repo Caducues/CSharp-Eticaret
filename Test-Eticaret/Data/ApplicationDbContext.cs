@@ -101,10 +101,32 @@ namespace Test_Eticaret.Data
             // SQL fonksiyonunu çağırıyoruz
             var totalMovies = this.Movies
                 .FromSqlRaw("SELECT CountMovies()")
-            .Select(x => x.movie_id) 
-            .FirstOrDefault(); // Veritabanından gelen ilk sonucu alıyoruz
+                .Select(x => x.movie_id) 
+                .FirstOrDefault(); // Veritabanından gelen ilk sonucu alıyoruz
 
             return totalMovies == 0 ? 0 : totalMovies; // Null kontrolü
+        }
+        public string FormatMovieTime(float movieTime)
+        {           
+            var result = this.Set<Movie>()
+                .FromSqlRaw("SELECT MovieTimeFormat({0})", movieTime)
+                .AsEnumerable() // Veriyi belleğe alıyoruz
+                .FirstOrDefault();  // İlk sonucu al
+
+            return result == null ? string.Empty : result.movie_time.ToString();
+        }
+
+        //SP ler
+
+        public void DeleteMovieById(int movieId)
+        {
+            // Stored Procedure'ü çağırıyoruz.
+            this.Database.ExecuteSqlRaw("CALL DeleteMovieById({0})", movieId);
+        }
+
+        public void UpdateViewCount(int movieId)
+        {
+            this.Database.ExecuteSqlRaw("CALL UpdateViewCount({0})", movieId);
         }
     }
 }
