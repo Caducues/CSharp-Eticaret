@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace Test_Eticaret.Models
 
 {
@@ -12,6 +11,8 @@ namespace Test_Eticaret.Models
         public int tel_no { get; set; }
         public string? user_email { get; set; }
         public string? user_password { get; set; }
+        //role id ekle
+        public ICollection<Favorite> Favorites { get; set; }
 
     }
 }

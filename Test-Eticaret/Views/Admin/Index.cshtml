@@ -1,0 +1,51 @@
+﻿@model List<Test_Eticaret.Models.Movie>
+@{
+    Layout = "_AdminLayout"; // Admin Layout dosyasını belirtme
+}
+
+<div class="container text-white d-flex flex-column justify-content-center align-items-center vh-100">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Toplam Film</div>
+                <div class="card-body">
+                    <h5 class="card-title">150</h5>
+                    <p class="card-text">Filmler veritabanında</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Toplam Kullanıcı</div>
+                <div class="card-body">
+                    <h5 class="card-title">500</h5>
+                    <p class="card-text">Kayıtlı kullanıcı sayısı</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Toplam Yorum</div>
+                <div class="card-body">
+                    <h5 class="card-title">350</h5>
+                    <p class="card-text">Yapılan yorumlar</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Toplam Görüntülenme</div>
+                <div class="card-body">
+                    <h5 class="card-title">1200</h5>
+                    <p class="card-text">Filmler görüntülenme sayısı</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Son Eklenen Filmler</h3>
+    <ul>
+        <li>Film 1 - 2024</li>
+        <li>Film 2 - 2023</li>
+        <li>Film 3 - 2022</li>
+    </ul>
+</div>

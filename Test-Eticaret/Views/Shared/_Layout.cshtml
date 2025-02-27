@@ -4,46 +4,85 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Test_Eticaret</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Test_Eticaret.styles.css" asp-append-version="true" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" type="text/css">
+    <!-- Css Styles -->
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+
+    <!-- CSS dosyaları burada yer alır -->
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Test_Eticaret</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="/website/index/">
+                            <img src="~/img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="header__nav">
+                       
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="/website/index/">Homepage</a></li>
+                                <li>
+                                    <a href="/website/index/">Categories </a>
+                                    <ul class="dropdown">
+                                        <li><a href="/website/categories/1/">Aksiyon</a></li>
+                                        <li><a href="/website/categories/2/">Drama</a></li>
+                                        <li><a href="/website/categories/3/">Komedi</a></li>
+                                        <li><a href="/website/categories/4/">Gerilim</a></li>
+                                        <li><a href="/website/categories/5/">Romantik</a></li>
+                                        <li><a href="/website/categories/6/">Macera</a></li>
+                                        <li><a href="/website/categories/7/">Belgesel</a></li>
+                                        <li><a href="/website/categories/8/">Suç</a></li>
+                                        <li><a href="/website/categories/9/">Fantastik</a></li>
+                                        <li><a href="/website/categories/10/">Gizem</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="/website/blog/">İletişim</a></li>
+                                <li><a href="/login/login/">Login</a></li>
+                            </ul>
+                            <p class="text-white">@TempData["Message"]</p>
+
+                        </nav>
+                        
+                    </div>
+                   
+                    
+                </div>
+               
+               
+                <div class="col-lg-2">
+                    
+                    <div class="header__right">
+                        <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                        <a href="/login/login"><span class="icon_profile"></span></a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Test_Eticaret - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div id="mobile-menu-wrap"></div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </header>
+    <!-- Header End -->
+
+    <!-- Sayfa içeriği burada yüklenecek -->
+    @RenderBody()
 </body>
 </html>

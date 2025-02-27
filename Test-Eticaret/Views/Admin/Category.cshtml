@@ -1,0 +1,39 @@
+﻿@model List<Test_Eticaret.Models.Category>
+@{
+    Layout = "_AdminLayout"; // Admin Layout dosyasını belirtme
+    
+}
+
+
+
+<body>
+    <div class="container my-5">
+        <h1>Manage Categories</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var category in Model)
+                {
+                    <tr>
+                        <td>@category.category_name</td>
+                        <td>
+                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+
+                }
+                
+            </tbody>
+        </table>
+        <a href="AdminDashboard.html" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    
+</body>

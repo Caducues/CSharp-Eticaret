@@ -1,0 +1,68 @@
+﻿@model Test_Eticaret.Models.Movie
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yeni Film Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="mb-4">Yeni Film Ekle</h1>
+
+        <form asp-action="addmovie" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="movie_name">Film Adı</label>
+                @Html.TextBoxFor(m => m.movie_name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.movie_name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="movie_url">Film Url</label>
+                @Html.TextBoxFor(m => m.movie_url, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.movie_url, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="movie_description">Açıklama</label>
+                @Html.TextAreaFor(m => m.movie_description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.movie_description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="movie_date">Yayınlanma Tarihi</label>
+                @Html.EditorFor(m => m.movie_date, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.movie_date, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="picture_url">Film Poster Resmi</label>
+                <input type="file" name="picture_url" id="picture_url" class="form-control" />
+                @Html.ValidationMessageFor(m => m.picture_url, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="category_id">Kategori</label>
+                @Html.DropDownListFor(m => m.category_id, (SelectList)ViewData["Categories"], "--Kategori Seç--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.category_id, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="movie_time">Film Süresi (dk)</label>
+                @Html.TextBoxFor(m => m.movie_time, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.movie_time, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
